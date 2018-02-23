@@ -403,6 +403,10 @@ def main():
                 continue
             for URL in URLS:
                 try:
+                    # Exit immediately if an invalid extension is seen
+                    if URL.endswith('webm') or URL.endswith('mp4') or URL.endswith('gif'):
+                        raise('Invalid extension - skipping.')
+
                     # Find gfycat if requested
                     if URL.endswith('gif') and ARGS.mirror_gfycat:
                         check = gfycat().check(URL)
