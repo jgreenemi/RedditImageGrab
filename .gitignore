@@ -13,4 +13,6 @@
 /gfycat
 /build
 /.pydevproject
+
 *.egg*
+env/
