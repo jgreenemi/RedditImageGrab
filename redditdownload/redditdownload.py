@@ -313,7 +313,7 @@ def print_progress_bar(posts_downloaded, posts_requested):
         else:
             progress_bar = '{}{}'.format(progress_bar, ' ')
 
-    progress_bar_message = '{0}% [{1}]'.format(progress_percent, progress_bar)
+    progress_bar_message = '{0}% [{1}] {2}/{3}'.format(progress_percent, progress_bar, posts_downloaded, posts_requested)
     print(progress_bar_message)
     return
 
