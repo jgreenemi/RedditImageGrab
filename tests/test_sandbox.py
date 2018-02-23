@@ -25,3 +25,8 @@ if __name__ == '__main__':
     TOTAL = 9053
     ARGSnum = 10000
     print_progress_bar(TOTAL, ARGSnum)
+
+    zeroval = None
+    print(type(zeroval))
+    zeroval = 0
+    print(type(zeroval))

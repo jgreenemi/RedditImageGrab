@@ -251,6 +251,8 @@ def parse_args(args):
                         help='ID of the last downloaded file.')
     PARSER.add_argument('--score', metavar='s', default=0, type=int, required=False,
                         help='Minimum score of images to download.')
+    PARSER.add_argument('--maxscore', metavar='m', default=None, type=int, required=False,
+                        help='Maximum score of images to download. Only needed if you\'re looking for low-rated posts.')
     PARSER.add_argument('--num', metavar='n', default=1000, type=int, required=False,
                         help='Number of images to download. Set to 0 to disable the limit')
     PARSER.add_argument('--update', default=False, action='store_true', required=False,
@@ -375,7 +377,19 @@ def main():
             # not downloading if url is reddit comment
             if ('reddit.com/r/' + ARGS.reddit + '/comments/' in ITEM['url'] or
                     re.match(reddit_comment_regex, ITEM['url']) is not None):
-                print('    Skip:[{}]'.format(ITEM['url']))
+                try:
+                    print('    Skip:[{}]'.format(ITEM['url']))
+                except UnicodeEncodeError as uee:
+                    print('    Skip:[Unprintable item.]')
+                continue
+
+            # Little hack to make sure a maxscore of 0 is valid.
+            # TODO Change this to follow PEP8 for NoneType check.
+            if (type(None) != type(ARGS.maxscore)) and (ITEM['score'] > ARGS.maxscore):
+                if ARGS.verbose:
+                    print('    SCORE: {} has score of {}'.format(ITEM['id'], ITEM['score']),
+                          'which is above the maximum score of {}.'.format(ARGS.maxscore))
+                SKIPPED += 1
                 continue
 
             if ITEM['score'] < ARGS.score:
@@ -385,6 +399,7 @@ def main():
 
                 SKIPPED += 1
                 continue
+
             elif ARGS.sfw and ITEM['over_18']:
                 if ARGS.verbose:
                     print('    NSFW: %s is marked as NSFW.' % (ITEM['id']))
