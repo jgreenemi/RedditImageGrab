@@ -425,7 +425,7 @@ def main():
                 _log.exception("Failed to extract urls for %r", URLS)
                 continue
 
-            print('URLS.length: {}'.format(len(URLS)))
+            #print('URLS.length: {}'.format(len(URLS)))
             for URL in URLS:
                 try:
                     # Exit immediately if an invalid extension is seen
@@ -487,7 +487,7 @@ def main():
                         break
                     elif ARGS.num:
                         # Print a progress bar / percentage.
-                        print_progress_bar(DOWNLOADED, ARGS.num)
+                        print_progress_bar(TOTAL, ARGS.num)
 
                 except WrongFileTypeException as ERROR:
                     print('    %s' % (ERROR,))

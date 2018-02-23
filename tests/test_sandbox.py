@@ -2,6 +2,9 @@
 
 
 def print_progress_bar(posts_downloaded, posts_requested):
+    # Use TOTAL instead of DOWNLOADED when implementing, because we want to include the "already downloaded" files into
+    # the progress bar for completion.
+
     progress_percent = float(posts_downloaded)/float(posts_requested) * 100
     progress_bar = ''
     progress_bar_width = 30
@@ -17,7 +20,7 @@ def print_progress_bar(posts_downloaded, posts_requested):
 
 
 if __name__ == '__main__':
-    #DOWNLOADED = 1453
-    DOWNLOADED = 9053
+    #TOTAL = 1453
+    TOTAL = 9053
     ARGSnum = 10000
-    print_progress_bar(DOWNLOADED, ARGSnum)
+    print_progress_bar(TOTAL, ARGSnum)
